@@ -106,3 +106,8 @@ venv.bak/
 # OS stuff:
 .DS_Store
 .idea
+
+# directory data and trash
+
+__trash__/
+data/
