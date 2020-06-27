@@ -1,3 +1,4 @@
+
 import argparse
 from p_acquisition import m_acquisition as mac
 #from p_wrangling import m_wrangling as mwr
@@ -6,14 +7,15 @@ from p_acquisition import m_acquisition as mac
 
 def argument_parser():
     parser = argparse.ArgumentParser(description = 'Set country')
-    parser.add_argument("-c", "--country", help="specify country for the results", type=str)
+    parser.add_argument("-c", "--country", help="specify country for the results", type=str)#, required=True)
+    parser.add_argument("-p" , "--path" , help="specify the path of the database, the file .db" , type=str,required=True)
     args = parser.parse_args()
     return args
 
 def main(arguments):
-    print(mac.acquire())
-    print(mac.acquire().info(memory_usage='deep'))
-    print(mac.acquire().nunique())
+    print(mac.acquire(arguments.path)['country_code'].unique())
+    print(mac.acquire(arguments.path).info(memory_usage='deep'))
+    print(mac.acquire(arguments.path).nunique())
 #    data = mac.acquire(arguments.path)
 #    filtered = mwr.wrangle(data, year)
  #   results = man.analyze(filtered)
