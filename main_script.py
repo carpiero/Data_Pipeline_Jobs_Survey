@@ -1,8 +1,8 @@
 
 import argparse
 from p_acquisition import m_acquisition as mac
-#from p_wrangling import m_wrangling as mwr
-#from p_analysis import m_analysis as man
+from p_wrangling import m_wrangling as mwr
+from p_analysis import m_analysis as man
 #from p_reporting import m_reporting as mre
 
 def argument_parser():
@@ -13,17 +13,15 @@ def argument_parser():
     return args
 
 def main(arguments):
-    print(mac.acquire(arguments.path)['Job Title'].unique())
-    print(mac.acquire(arguments.path)['Job Title'].value_counts())
-    print(mac.acquire(arguments.path).info(memory_usage='deep'))
-    print(mac.acquire(arguments.path).nunique())
-    mac.acquire(arguments.path).to_parquet('./data/processed/df_proba.parquet')
-#    data = mac.acquire(arguments.path)
-#    filtered = mwr.wrangle(data, year)
- #   results = man.analyze(filtered)
+
+    data = mac.acquire(arguments.path)
+    filtered = mwr.wrangle(data)
+    results = man.analyze(filtered)
+
+
  #   fig = mre.plotting_function(results, title, arguments)
  #   mre.save_viz(fig, title)
-    print('========================= Pipeline is complete. You may find the results in the folder ./data/results =========================')
+ #   print('========================= Pipeline is complete. You may find the results in the folder ./data/results =========================')
 
 if __name__ == '__main__':
 #    year = int(input('Enter the year: '))

@@ -17,6 +17,7 @@ def get_tables(path):
     df_final = reduce(lambda left , right: pd.merge(left , right , on='uuid') , dfs)
     return df_final
 
+
 def clean(df_clean):
     ''' cleaning age column '''
 
@@ -79,6 +80,7 @@ def clean(df_clean):
 
     return df_clean
 
+
 def web_scrapping(df_web_scrapping):
 
     ''' Extract the information from the website'''
@@ -112,6 +114,7 @@ def web_scrapping(df_web_scrapping):
 
     return df_web_scrapping
 
+
 def api_jobs(df_api_jobs):
 
     list_unique_jobs = df_api_jobs['normalized_job_code'].unique().tolist()
@@ -138,7 +141,6 @@ def api_jobs(df_api_jobs):
         df_api_jobs.loc[df_api_jobs['normalized_job_code'] == k , 'Job Title'] = v
 
     return df_api_jobs
-
 
 
 def acquire(path):

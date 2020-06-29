@@ -1,8 +1,65 @@
-import pandas as pd
+import numpy as np
 
 # analysis functions
 
-def analyze(df):
-    grouped = df.groupby('Make').agg({'Combined MPG':'mean'}).reset_index()
-    results = grouped.sort_values('Combined MPG', ascending=False).head(10)
-    return results
+def quantity(df_quantity):
+
+    df_quantity['Quantity'] = 1
+    list_group = ['Country' , 'Job Title' , 'gender']
+    df_quantity = df_quantity[['Country' , 'Job Title' , 'gender' , 'Quantity']]\
+                                                .groupby(list_group ,as_index=False).count()
+
+    df_quantity['Quantity'] = df_quantity['Quantity'].fillna(0)
+    df_quantity['Quantity'] = df_quantity['Quantity'].astype('int64')
+
+    return df_quantity
+
+
+def percentage(df_percentage):
+
+    ''' Add a new column 'Total People' to the Groupby ['Country', 'Job Title', 'gender', 'Quantity'] DataFrame with all the people surveyed for each country '''
+
+    list_country = df_percentage['Country'].unique().tolist()
+    df_percentage['Total People'] = 0
+    for x in list_country:
+        df_percentage.loc[df_percentage['Country'] == x , 'Total People'] = \
+            df_percentage.loc[df_percentage['Country'].str.contains(x) , 'Quantity'].sum()
+
+    ''' Add a new column 'Percentage' to the Groupby ['Country', 'Job Title', 'gender', 'Quantity', 'Total People'] 
+    DataFrame with the percentage of people from the same country with the same gender and jobs. '''
+
+    df_percentage['Percentage'] = np.where(df_percentage['Quantity'] == 0 , 12345.12345 ,
+                                         round(df_percentage['Quantity'] / df_percentage['Total People'] * 100))
+
+    df_percentage['Percentage'] = np.where(df_percentage['Percentage'] == 12345.12345 ,
+                                         'Does not apply' , df_percentage['Percentage'].apply(lambda x: f'{int(x)} %'))
+
+    df_percentage['Percentage'] = df_percentage['Percentage'].str.replace(r'0 %' , 'less than 1 %')
+
+
+    return df_percentage
+
+
+def final_table(df_final_table):
+
+    df_final_table['Gender (1)'] = df_final_table['gender']
+    df_final_table = df_final_table[['Country' , 'Job Title' , 'Gender (1)' , 'Quantity' , 'Percentage']]
+
+    return df_final_table
+
+
+def analyze(filtered):
+    df_quantity= quantity(filtered)
+    df_percentage= percentage(df_quantity)
+
+
+    print(final_table(df_percentage).loc[final_table(df_percentage)['Country'].str.contains('Spain') \
+            & final_table(df_percentage)['Job Title'].str.contains('Data Scientist')])
+    print(final_table(df_percentage).loc[final_table(df_percentage)['Country'].str.contains('Spain')])
+    print(final_table(df_percentage).info(memory_usage='deep'))
+    print(final_table(df_percentage).nunique())
+    final_table(df_percentage).to_parquet('./data/processed/df_groupproba.parquet')
+    print(final_table(df_percentage))
+    print('========================= Pipeline is complete. You may find the results in the folder ./data/results =========================')
+
+    return final_table(df_percentage)
