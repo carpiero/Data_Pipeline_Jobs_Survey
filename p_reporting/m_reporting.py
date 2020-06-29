@@ -1,32 +1,26 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 
 # reporting functions
 
-'''
-def visualize_barplot(df,title):
-    fig, ax = plt.subplots(figsize=(15,8))
-    chart = sns.barplot(data=df, x='Make', y='Combined MPG')
-    plt.title(title + "\n", fontsize=16)
-    return chart
+def specific_country(df_specific_country, country):
 
-def visualize_lineplot(df,title):
-    fig, ax = plt.subplots(figsize=(15,8))
-    chart = sns.lineplot(data=df, x='Make', y='Combined MPG')
-    plt.title(title + "\n", fontsize=16)
-    return chart
-'''
+#    df_specific_country = df_specific_country.loc[df_specific_country['Country']\
+#        .str.contains(country)].sort_values(by='Quantity' , ascending=False)
 
-def plotting_function(df,title,args):
-    fig, ax = plt.subplots(figsize=(16,8))
-    plt.title(title + "\n", fontsize=16)
-    if args.bar == True:
-        sns.barplot(data=df, x='Make', y='Combined MPG')
-        return fig
-    elif args.line == True:
-        sns.lineplot(data=df, x='Make', y='Combined MPG')
-        return fig
+    return df_specific_country
 
-def save_viz(fig,title):
-    fig.savefig('./data/results/' + title + '.png')
+
+
+
+
+
+def reporting(results,country):
+
+
+    print(specific_country(results,country).info(memory_usage='deep'))
+    print(specific_country(results,country).nunique())
+    print(specific_country(results,country))
+    print('========================= Pipeline is complete. You may find the results in the folder ./data/results =========================')
+
+
+    return specific_country(results,country)

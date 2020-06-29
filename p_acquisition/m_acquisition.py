@@ -8,6 +8,7 @@ import re
 # acquisition functions
 
 def get_tables(path):
+
     engine = create_engine(f'sqlite:///{path}')
     df_personal = pd.read_sql("SELECT * FROM personal_info" , engine)
     df_country = pd.read_sql("SELECT * FROM country_info" , engine)
@@ -15,10 +16,12 @@ def get_tables(path):
     df_poll = pd.read_sql("SELECT * FROM poll_info" , engine)
     dfs = [df_personal , df_country , df_career , df_poll]
     df_final = reduce(lambda left , right: pd.merge(left , right , on='uuid') , dfs)
+
     return df_final
 
 
 def clean(df_clean):
+
     ''' cleaning age column '''
 
     df_clean['age'] = df_clean['age'].str.replace(' years old' , '')

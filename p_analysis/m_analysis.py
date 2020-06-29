@@ -49,17 +49,8 @@ def final_table(df_final_table):
 
 
 def analyze(filtered):
+
     df_quantity= quantity(filtered)
     df_percentage= percentage(df_quantity)
-
-
-    print(final_table(df_percentage).loc[final_table(df_percentage)['Country'].str.contains('Spain') \
-            & final_table(df_percentage)['Job Title'].str.contains('Data Scientist')])
-    print(final_table(df_percentage).loc[final_table(df_percentage)['Country'].str.contains('Spain')])
-    print(final_table(df_percentage).info(memory_usage='deep'))
-    print(final_table(df_percentage).nunique())
-    final_table(df_percentage).to_parquet('./data/processed/df_groupproba.parquet')
-    print(final_table(df_percentage))
-    print('========================= Pipeline is complete. You may find the results in the folder ./data/results =========================')
 
     return final_table(df_percentage)
