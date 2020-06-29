@@ -13,9 +13,11 @@ def argument_parser():
     return args
 
 def main(arguments):
-    print(mac.acquire(arguments.path)['country_code'].unique())
+    print(mac.acquire(arguments.path)['Job Title'].unique())
+    print(mac.acquire(arguments.path)['Job Title'].value_counts())
     print(mac.acquire(arguments.path).info(memory_usage='deep'))
     print(mac.acquire(arguments.path).nunique())
+    mac.acquire(arguments.path).to_parquet('./data/processed/df_proba.parquet')
 #    data = mac.acquire(arguments.path)
 #    filtered = mwr.wrangle(data, year)
  #   results = man.analyze(filtered)
