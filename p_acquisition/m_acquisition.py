@@ -14,8 +14,8 @@ def get_tables(path):
     df_country = pd.read_sql("SELECT * FROM country_info" , engine)
     df_career = pd.read_sql("SELECT * FROM career_info" , engine)
     df_poll = pd.read_sql("SELECT * FROM poll_info" , engine)
-    dfs = [df_personal , df_country , df_career , df_poll]
-    df_final = reduce(lambda left , right: pd.merge(left , right , on='uuid') , dfs)
+    dfs = [df_personal, df_country, df_career, df_poll]
+    df_final = reduce(lambda left , right: pd.merge(left , right , on='uuid'), dfs)
 
     return df_final
 
@@ -25,8 +25,10 @@ def clean(df_clean):
     ''' cleaning age column '''
 
     df_clean['age'] = df_clean['age'].str.replace(' years old' , '')
-    for x in range(1980 , 2087):
+
+    for x in range(1980, 2087):
         df_clean['age'] = df_clean['age'].str.replace(f'{x}' , f'{2016 - x}')
+
     df_clean['age'] = df_clean['age'].astype('int64')
 
 
@@ -36,6 +38,7 @@ def clean(df_clean):
                                             .str.replace(r'\bFem\b' , 'Female') \
                                             .str.replace(r'\bFeMale\b' , 'Female') \
                                             .str.replace(r'\bfemale\b' , 'Female')
+
     df_clean['gender'] = df_clean['gender'].astype('category')
 
 
@@ -45,6 +48,7 @@ def clean(df_clean):
                                                                 .str.replace(r'\byES\b' , 'yes') \
                                                                 .str.replace(r'\bnO\b' , 'no') \
                                                                 .str.replace(r'\bYES\b' , 'yes')
+
     df_clean['dem_has_children'] = df_clean['dem_has_children'].astype('category')
 
 
@@ -58,6 +62,7 @@ def clean(df_clean):
 
     df_clean['country_code'] = df_clean['country_code'].str.replace(r'\bGB\b' , 'UK') \
                                                         .str.replace(r'\bGR\b' , 'EL')
+
     df_clean['country_code'] = df_clean['country_code'].astype('category')
 
 
@@ -97,23 +102,25 @@ def web_scrapping(df_web_scrapping):
 
     ''' cleaning scrapping text and create a dictionary with the codes and countries'''
 
-    rows_clean = [re.sub(r'\s' , '' , x) for x in rows_parsed]
-    rows_clean = [re.sub(r'\*' , '' , x) for x in rows_clean]
-    rows_clean = [re.sub(r'\[\d\]' , '' , x) for x in rows_clean]
-    rows_clean = ''.join(rows_clean)
+    rows_without_spaces = [re.sub(r'\s' , '' , x) for x in rows_parsed]
+    rows_without_star = [re.sub(r'\*' , '' , x) for x in rows_without_spaces]
+    rows_without_squarebrackets = [re.sub(r'\[\d\]' , '' , x) for x in rows_without_star]
+    rows_clean = ''.join(rows_without_squarebrackets)
 
-    #Every country consist of a 2-character code except one country that has a 7-character code, it is set to {0.7} to give the option that codes of 0 to 7 characters may appear in the future.
+    '''Every country consist of a 2-character code except one country that has a 7-character code,
+     it is set to {0.7} to give the option that codes of 0 to 7 characters may appear in the future.'''
 
     rows_country_value = re.split(r'\(\w{0,7}\)' , rows_clean)
     rows_code_key = re.findall(r'\(\w{0,7}\)' , rows_clean)
     rows_code_key = [re.sub(r'\(|\)' , '' , x) for x in rows_code_key]
+
     dict_country = dict(zip(rows_code_key , rows_country_value))
 
     ''' Add a new column to the DataFrame with the information of web scrapping dictionary '''
     
     df_web_scrapping['Country'] = ''
-    for k, v in dict_country.items():
-        df_web_scrapping.loc[df_web_scrapping['country_code'] == k , 'Country'] = v
+    for key, value in dict_country.items():
+        df_web_scrapping.loc[df_web_scrapping['country_code'] == key, 'Country'] = value
 
     return df_web_scrapping
 

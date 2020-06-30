@@ -7,7 +7,7 @@ def quantity(df_quantity):
     df_quantity['Quantity'] = 1
     list_group = ['Country' , 'Job Title' , 'gender']
     df_quantity = df_quantity[['Country' , 'Job Title' , 'gender' , 'Quantity']]\
-                                                .groupby(list_group ,as_index=False).count()
+                                            .groupby(list_group ,as_index=False).count()
 
     df_quantity['Quantity'] = df_quantity['Quantity'].fillna(0)
     df_quantity['Quantity'] = df_quantity['Quantity'].astype('int64')

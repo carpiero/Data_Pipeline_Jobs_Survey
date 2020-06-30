@@ -1,4 +1,3 @@
-
 import argparse
 from p_acquisition import m_acquisition as mac
 from p_wrangling import m_wrangling as mwr
@@ -9,6 +8,7 @@ def argument_parser():
     parser = argparse.ArgumentParser(description = 'Set country')
     parser.add_argument("-c", "--country", help="specify country for the results", type=str)
     parser.add_argument("-p" , "--path" , help="specify the path of the database, the file .db" , type=str,required=True)
+    parser.add_argument("-u" , "--unemployed" , help="specify the results with Unemployed or Part time Job or Inactive Effect, must be yes or no, default=yes" , type=str)
     args = parser.parse_args()
     return args
 
@@ -20,10 +20,10 @@ def main(arguments):
     results.to_csv('./data/results/df_results.csv')
 
     reporting = mre.reporting(results, arguments.country)
-
     print(reporting)
 
-    print('\n\n========================= Pipeline is complete. You may find the results in the folder ./data/results =========================')
+    if not isinstance(reporting , str):
+        print('\n\n========================= Pipeline is complete. You may find the results in the folder ./data/results =========================\n\n')
 
 if __name__ == '__main__':
 
