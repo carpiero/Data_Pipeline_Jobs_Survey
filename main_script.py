@@ -19,12 +19,11 @@ def main(arguments):
     results = man.analyze(filtered)
     results.to_csv('./data/results/df_results.csv')
 
-    country= mre.specific_country(results,arguments.country)
-    reporting = mre.reporting(results, country)
+    reporting = mre.reporting(results, arguments.country)
 
     print(reporting)
 
-    print('========================= Pipeline is complete. You may find the results in the folder ./data/results =========================')
+    print('\n\n========================= Pipeline is complete. You may find the results in the folder ./data/results =========================')
 
 if __name__ == '__main__':
 
