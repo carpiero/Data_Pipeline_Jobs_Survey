@@ -44,6 +44,7 @@ def final_table(df_final_table):
 
     df_final_table['Gender (1)'] = df_final_table['gender']
     df_final_table = df_final_table[['Country' , 'Job Title' , 'Gender (1)' , 'Quantity' , 'Percentage']]
+    df_final_table = df_final_table.loc[df_final_table['Quantity']>0].reset_index()
 
     return df_final_table
 
