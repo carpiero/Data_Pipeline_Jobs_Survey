@@ -34,7 +34,7 @@ def percentage(df_percentage):
     df_percentage['Percentage'] = np.where(df_percentage['Percentage'] == 12345.12345 ,
                                          'Does not apply' , df_percentage['Percentage'].apply(lambda x: f'{int(x)} %'))
 
-    df_percentage['Percentage'] = df_percentage['Percentage'].str.replace(r'0 %' , 'less than 1 %')
+    df_percentage['Percentage'] = df_percentage['Percentage'].str.replace(r'\b0 %' , 'less than 1 %')
 
 
     return df_percentage
