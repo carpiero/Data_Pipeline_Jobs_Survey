@@ -1,53 +1,65 @@
-# Data Project README file
+# Ironhack Data Analytics M1 Project README file
 
-The README file describes the essence of the project playing the most important role. Most visitors will simply scroll down about twice on the README and leave if they are not interested. So, the README file should provide the reason **why** to checkout your project!!!). 
-Bearing that in mind, your job is to: 
-- Tell them what it is (with context).
-- Show them what it looks like in action.
-- Show them how they use it.
-- Tell them any other relevant details.
+
 
 ![Image](https://res.cloudinary.com/springboard-images/image/upload/q_auto,f_auto,fl_lossy/wordpress/2019/05/aiexcerpt.png)
 
 ---
 
-## **Formatting**
-Your readers will most likely view your README in a browser so please keep that in mind when formatting its content: 
-- Use proper format when necesary (e.g.: `import pandas as pd`). 
-- Categorize content using two or three levels of header beneath. 
-- Make use of **emphasis** to call out important words. 
-- Link to project pages for related libraries you mention. Link to Wikipedia, Wiktionary, even Urban Dictionary definitions for words of which a reader may not be familiar. Make amusing cultural references. 
-- Add links to related projects or services. 
-
-> Here you have a markdown cheatsheet [Link](https://commonmark.org/help/) and tutorial [Link](https://commonmark.org/help/tutorial/).
 
 
-## **Start writing ASAP:**
-*Last but not least, by writing your README soon you give yourself some pretty significant advantages. Most importantly, you’re giving yourself a chance to think through the project without the overhead of having to change code every time you change your mind about how something should be organized or what should be included.*
+### :raising_hand: **Jobs Survey Reporting** 
 
-
-## **Suggested Structure:**
-
-### :raising_hand: **Name** 
-Self-explanatory names are best. If the name sounds too vague or unrelated, it may be a signal to move on. It also must be catchy. Images, Logo, Gif or some color is strongly recommended.
 
 ### :baby: **Status**
-Alpha, Beta, 1.1, Ironhack Data Analytics Final Project, etc... It's OK to write a sentence, too. The goal is to let interested people know where this project is at.
+Ironhack Data Analytics M1 Project
 
 ### :running: **One-liner**
-Having a one-liner that describes the pipeline/api/app is useful for getting an idea of what your code does in slightly greater detail. 
+
+```
+main_script.py -p ./data/raw/raw_data_project_m1.db --country Malta --unemployed yes
+```
+
 
 ### :computer: **Technology stack**
-Python, Pandas, Scipy, Scikit-learn, etc. Indicate the technological nature of the software, including primary programming language(s), main libraries and whether the software is intended as standalone or as a module in a framework or other ecosystem.
 
-### :boom: **Core technical concepts and inspiration**
-Why does it exist? Frame your project for the potential user. Compare/contrast your project with other, similar projects so the user knows how it is different from those projects. Highlight the technical concepts that your project demonstrates or supports. Keep it very brief.
+- Python==3.7.3
+- pandas==0.24.2
+- sqlalchemy==1.3.16
+- requests==2.23.0
+- bs4==4.9.1
+- numpy==1.18.1
+- argparse==3.2
 
-### :wrench: **Configuration**
-Requeriments, prerequisites, dependencies, installation instructions.
+## **Data:**
+
+There are 3 different datasource involved:
+
+- **Tables (.db).** [Here](http://www.potacho.com/files/ironhack/raw_data_project_m1.db) you can find the `.db` file with the main dataset.
+
+- **API.** We will use the API from the [Open Skills Project](http://dataatwork.org/data/).  
+
+- **Web Scraping.** Finally, we will need to retrieve information about country codes from [Eurostat](https://ec.europa.eu/eurostat/statistics-explained/index.php/Glossary:Country_codes) website.
 
 ### :see_no_evil: **Usage**
-Parameters, return values, known issues, thrown errors.
+
+In the first place, we want to obtain the data of a specific job per gender and country of a concrete survey.
+
+Second I have decided to put the argument unemployed.
+
+If the argument is yes, you obtain the percentage of a specific jobs by gender over the total number of people surveyed in a certain country. Because you have a Job title called 'Unemployed or Part time job or Inactive', These are people who answered the survey who did not have a full-time job, Therefore they can only be Unemployed or they have a Part time job or are Inactive(like students or eldery)
+
+If the argument is no, you obtain the percentage of a specific jobs by gender over the total number of people who have a full time job in a certain country. 
+
+Besides I have set the string 'Less than 1%' for the percentages between 1 and more than 0, to make it more readable.
+
+Third, you get the results for a specific country with argument -country, you can also get the percentage for the total number of people surveyed or for the total number of people who have a full time job.
+
+Fourth to handle errors when you set a wrong argument I have used two options.
+
+when you enter a wrong country or does not appear in the survey, the terminal prints the list of possible countries.
+
+In addition, when you enter a wrong unemployed argument, the terminal prints a native error and the choices.
 
 ### :file_folder: **Folder structure**
 ```
@@ -59,41 +71,24 @@ Parameters, return values, known issues, thrown errors.
     ├── README.md
     ├── main_script.py
     ├── notebooks
-    │   ├── notebook1.ipynb
-    │   └── notebook2.ipynb
-    ├── package1
-    │   ├── module1.py
-    │   └── module2.py
+    ├── p_acquisition
+    │   ├── __init__.py
+    │   └── m_acquisition.py
+    ├── p_analysis
+    │   ├── __init__.py
+    │   └── m_analysis.py
+    ├── p_reporting
+    │   ├── __init__.py
+    │   └── m_reporting.py
+    ├── p_wrangling
+    │   ├── __init__.py
+    │   └── m_wrangling.py
     └── data
         ├── raw
         ├── processed
         └── results
 ```
 
-> Do not forget to include `__trash__` and `.env` in `.gitignore` 
 
-### :shit: **ToDo**
-Next steps, features planned, known bugs (shortlist).
 
-### :information_source: **Further info**
-Credits, alternatives, references, license.
-
-### :love_letter: **Contact info**
-Getting help, getting involved, hire me please.
-
----
-
-> Here you have some repo examples:
-- [Mamba (OCR-Translator-Assistant)](https://github.com/YonatanRA/OCR-translator-assistant-project)
-- [Art Classification](https://github.com/serguma/art_classification)
-- [OSNet-IBN (width x 1.0) Lite](https://github.com/RodMech/OSNet-IBN1-Lite)
-- [Movie Founder](https://github.com/Alfagu/final-project-Ironhack-0419mad)
-- [Convolutional Neural Network to detect Pneumonia](https://github.com/jmolins89/final-project)
-- [Brain tumor detection project](https://github.com/alonsopdani/brain-tumor-detection-project)
-- [Policy-Gradient-Methods](https://github.com/cyoon1729/Policy-Gradient-Methods)
-
-> Here you have some tools and references:
-- [Make a README](https://www.makeareadme.com/)
-- [Awesome README](https://github.com/matiassingers/awesome-readme)
-- [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
