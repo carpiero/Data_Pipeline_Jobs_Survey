@@ -25,7 +25,7 @@ def main(arguments):
 
     print(reporting)
 
-    print('\n\n========================= Pipeline is complete. You may find the results in the folder ./data/results =========================\n\n')
+    print('\n\n======================|    Pipeline is complete. You may find the results in the folder ./data/results     |==============================\n\n')
 
 
 if __name__ == '__main__':
@@ -36,10 +36,10 @@ if __name__ == '__main__':
 
     except TypeError:
 
-        print('\n=================================================================================================\n\nERROR: Please insert a Yes or No for Unemployed argument. \n\n=================================================================================================\n\n')
+        print('\n=================================|      Argument ERROR -u        |===================================================\n\nArgument ERROR -u: Please insert a Yes or No for Unemployed argument.\n\n=====================================================================================================================\n\n')
 
     except NameError:
 
-        print('\n=================================================================================================\n\nERROR: Please insert a correct Country of the list above or inside ./data/results/country_list.csv\n\n=================================================================================================\n\n')
+        print('\n=================================|      Argument ERROR -c        |===================================================\n\nArgument ERROR -c: Please insert a correct Country of the list above or inside ./data/results/country_list.csv\n\n=====================================================================================================================\n\n')
 
 
