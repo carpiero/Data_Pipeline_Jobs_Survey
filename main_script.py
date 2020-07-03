@@ -7,7 +7,7 @@ from p_reporting import m_reporting as mre
 def argument_parser():
 
     parser = argparse.ArgumentParser(description = 'Set country')
-    parser.add_argument("-c", "--country", help="specify country for the results, default= All the countries", type=str)
+    parser.add_argument("-c", "--country",help="specify country for the results, default= All the countries", type=str)
     parser.add_argument("-p" , "--path" , help="specify the path of the database, the file .db" , type=str,required=True)
     parser.add_argument("-u" , "--unemployed" , choices=['yes','no'],help="specify the results with Unemployed or Part time Job or Inactive effect, must be yes or no, default=yes" , type=str)
     args = parser.parse_args()

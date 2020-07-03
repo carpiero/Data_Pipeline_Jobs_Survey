@@ -127,32 +127,32 @@ def web_scrapping(df_web_scrapping):
 
 def api_jobs(df_api_jobs):
 
-    # list_unique_jobs = df_api_jobs['normalized_job_code'].unique().tolist()
-    #
-    # ''' Get the information from the API and create a dictionary with the Normalized Job Code and Jobs Title'''
-    #
-    # list_uuid_key = []
-    # list_title_value = []
-    # for x in list_unique_jobs:
-    #     url = f'http://api.dataatwork.org/v1/jobs/{x}'
-    #     response = requests.get(url).json()
-    #     if list(response.keys())[0] == 'error':
-    #         pass
-    #     else:
-    #         list_uuid_key.append(response['uuid'])
-    #         list_title_value.append(response['title'])
-    #
-    # dict_uuid_title = dict(zip(list_uuid_key , list_title_value))
-    #
-    # ''' Add a new column to the DataFrame with the information of Jobs Title API '''
-    #
-    # df_api_jobs['Job Title'] = df_api_jobs['normalized_job_code']
-    # for k , v in dict_uuid_title.items():
-    #     df_api_jobs.loc[df_api_jobs['normalized_job_code'] == k , 'Job Title'] = v
+    list_unique_jobs = df_api_jobs['normalized_job_code'].unique().tolist()
+
+    ''' Get the information from the API and create a dictionary with the Normalized Job Code and Jobs Title'''
+
+    list_uuid_key = []
+    list_title_value = []
+    for x in list_unique_jobs:
+        url = f'http://api.dataatwork.org/v1/jobs/{x}'
+        response = requests.get(url).json()
+        if list(response.keys())[0] == 'error':
+            pass
+        else:
+            list_uuid_key.append(response['uuid'])
+            list_title_value.append(response['title'])
+
+    dict_uuid_title = dict(zip(list_uuid_key , list_title_value))
+
+    ''' Add a new column to the DataFrame with the information of Jobs Title API '''
+
+    df_api_jobs['Job Title'] = df_api_jobs['normalized_job_code']
+    for k , v in dict_uuid_title.items():
+        df_api_jobs.loc[df_api_jobs['normalized_job_code'] == k , 'Job Title'] = v
 
 
 
-    df_api_jobs = pd.read_parquet(f'./data/processed/df_api_jobs.parquet')
+    # df_api_jobs = pd.read_parquet(f'./data/processed/df_api_jobs.parquet')
 
 
     # df_api_jobs.to_parquet('./data/processed/df_api_jobs.parquet')
