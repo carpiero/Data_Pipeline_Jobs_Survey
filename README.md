@@ -2,7 +2,7 @@
 
 
 
-![Image](data/raw/pipeline.jpg)
+![Image](notebooks/pipeline.jpg)
 
 ---
 
