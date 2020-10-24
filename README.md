@@ -1,4 +1,4 @@
-# Ironhack Data Analytics M1 Project README file
+# Data Pipeline of Jobs Survey Reporting
 
 
 
@@ -8,10 +8,9 @@
 
 
 
-### :raising_hand: **Jobs Survey Reporting** 
+### :raising_hand: **Data Pipeline | Jobs Survey Reporting | Using Api and Webscraping to enrich database.** 
 
 
-### :baby: **Status**
 Data Pipeline | Jobs Survey Reporting | Using Api and Webscraping to enrich database.
 
 ### :running: **One-liner**
@@ -31,7 +30,7 @@ main_script.py -p ./data/raw/raw_data_project_m1.db --country Malta --unemployed
 - numpy==1.18.1
 - argparse==3.2
 
-## **Data:**
+## :newspaper: **Data:**
 
 There are 3 different datasource involved:
 
