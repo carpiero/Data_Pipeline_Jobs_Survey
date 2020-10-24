@@ -8,7 +8,7 @@
 
 
 
-## :checkered_flag: **Data Pipeline | Jobs Survey Reporting | Using Api and Webscraping to enrich database.** 
+## :loudspeaker: **Data Pipeline | Jobs Survey Reporting | Using Api and Webscraping to enrich database.** 
 
 ### :running: **One-liner**
 
